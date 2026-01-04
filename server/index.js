@@ -39,6 +39,7 @@ const {
   getHotspotIP,
 } = require('./hotspot');
 
+// Default port 53401 - can be overridden with TRANSFER_PORT env var
 const SERVER_PORT = parseInt(process.env.TRANSFER_PORT, 10) || 53401;
 const app = express();
 // TLS certs are only used for peer-to-peer connections, not the web UI
