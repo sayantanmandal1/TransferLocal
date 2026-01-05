@@ -38,7 +38,7 @@ function getNetworkStatus() {
 }
 
 /**
- * Detect if mobile hotspot is active by checking for the 192.168.137.x interface
+ * Detect if mobile hotspot is active by checking for the 192.168.137.x subnet (Windows ICS default)
  */
 function getHotspotStatus() {
   return new Promise((resolve) => {
