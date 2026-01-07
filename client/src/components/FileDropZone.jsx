@@ -57,6 +57,7 @@ export default function FileDropZone({ onDrop }) {
     <div>
       <motion.div
         onDragOver={handleDragOver}
+        aria-label="File drop area"
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         animate={dragging ? { scale: 1.01 } : { scale: 1 }}
