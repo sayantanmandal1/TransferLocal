@@ -9,6 +9,7 @@ const CONFIG_PATH = path.join(__dirname, 'config.json');
 
 let identity = null;
 
+// Loads or creates device identity, regenerating if copied from another machine
 function loadIdentity() {
   if (identity) return identity;
 
