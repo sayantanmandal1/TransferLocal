@@ -13,7 +13,7 @@ function getWorkspaceState() {
     startedAt: session.startedAt,
     files: session.files || [],
     messages: session.messages || [],
-    transfers: getAllTransfers(),
+    transfers: getAllTransfers() || [],
   };
 }
 
