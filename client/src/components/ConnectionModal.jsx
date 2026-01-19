@@ -104,7 +104,7 @@ export default function ConnectionModal() {
           <input
             type="text"
             value={code}
-            onChange={(e) => setCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6))}
+            onChange={(e) => { setError(''); setCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6)); }}
             onKeyDown={(e) => e.key === 'Enter' && handleVerify()}
             placeholder="XXXXXX"
             className="input text-center text-xl font-mono tracking-[0.3em] uppercase"
