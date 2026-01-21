@@ -8,7 +8,7 @@ const crc32 = require('crc-32');
 const { ensureCerts } = require('./tls');
 
 const CHUNK_SIZE = 2 * 1024 * 1024; // 2MB chunks
-const TRANSFER_PORT_BASE = 53410; // reserved range for file transfers
+const TRANSFER_PORT_BASE = 53410;
 let transferPort = TRANSFER_PORT_BASE;
 let transferServer = null;
 const activeTransfers = new Map();
