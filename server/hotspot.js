@@ -27,7 +27,7 @@ function getNetworkStatus() {
       return;
     }
 
-    dns.resolve('dns.google', { timeout: 3000 }, (err) => {
+    dns.resolve('dns.google', (err) => {
       if (err) {
         resolve('local');
       } else {
