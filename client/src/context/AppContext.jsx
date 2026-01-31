@@ -12,7 +12,7 @@ const initialState = {
   messages: [],
   transfers: [],
   connected: false,
-  darkMode: localStorage.getItem('darkMode') === 'true',
+  darkMode: localStorage.getItem('darkMode') === 'true', // persisted preference
   offlineMode: false,
   view: 'home', // 'home' | 'workspace'
 };
