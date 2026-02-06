@@ -35,6 +35,7 @@ function initiateConnection(targetPeer, serverPort) {
     targetPeerInfo = { id: targetPeer.id, name: targetPeer.name, ip: targetPeer.ip, port: targetPeer.port };
 
     const wsUrl = `ws://${targetPeer.ip}:${targetPeer.port}/ws/peer`;
+    const CONNECTION_TIMEOUT = 15000;
 
     const ws = new WebSocket(wsUrl);
 
