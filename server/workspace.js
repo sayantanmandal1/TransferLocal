@@ -3,6 +3,7 @@
 const { getSession } = require('./connection');
 const { getAllTransfers } = require('./transfer');
 
+/** Returns the full workspace state including session, files, messages and transfers */
 function getWorkspaceState() {
   const session = getSession();
   if (!session) return null;
