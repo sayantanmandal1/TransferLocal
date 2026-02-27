@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const crc32 = require('crc-32');
 const { ensureCerts } = require('./tls');
 
-const CHUNK_SIZE = 4 * 1024 * 1024; // 4MB chunks for better throughput
+const CHUNK_SIZE = 2 * 1024 * 1024; // 2MB chunks
 const TRANSFER_PORT_BASE = 53410; // reserved range for file transfers
 let transferPort = TRANSFER_PORT_BASE;
 let transferServer = null;
