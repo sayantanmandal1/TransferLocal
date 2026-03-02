@@ -46,7 +46,7 @@ export default function FileDropZone({ onDrop }) {
       }
     }
 
-    if (files.length > 0 && onDrop) {
+    if (files.length > 0) {
       setDroppedFiles(files.map(f => ({ name: f.name, size: f.size })));
       onDrop(files, relativePaths);
       setTimeout(() => setDroppedFiles([]), 3000);
