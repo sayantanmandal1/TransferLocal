@@ -5,7 +5,7 @@ const os = require('os');
 const { getIdentity } = require('./identity');
 
 const DISCOVERY_PORT = 53400;
-const BROADCAST_INTERVAL = 2500; // slightly longer interval
+const BROADCAST_INTERVAL = 2000;
 const PEER_TIMEOUT = 6000;
 
 let socket = null;
