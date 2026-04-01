@@ -33,6 +33,7 @@ function AppContent() {
                   : 'hover:bg-secondary text-muted-foreground'
               }`}
               title={state.offlineMode ? 'Switch to Online Mode' : 'Switch to Offline Mode'}
+              aria-pressed={state.offlineMode}
             >
               {state.offlineMode ? <WifiOff className="w-3 h-3" /> : <Wifi className="w-3 h-3" />}
               {state.offlineMode ? 'Offline' : 'Online'}
