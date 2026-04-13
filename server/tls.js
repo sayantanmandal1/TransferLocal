@@ -23,7 +23,7 @@ function ensureCerts() {
   const CERT_COMMON_NAME = 'Transfer Local';
   const attrs = [{ name: 'commonName', value: CERT_COMMON_NAME }];
   const opts = {
-    days: 3650, // 10 years
+    days: 3650,
     keySize: 2048,
     algorithm: 'sha256',
     extensions: [
