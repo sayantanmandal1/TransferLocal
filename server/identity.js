@@ -24,7 +24,7 @@ function loadIdentity() {
       return identity;
     }
 
-    identity = stored;
+    identity = { ...stored, name: stored.name ? stored.name.trim() : stored.name };
     return identity;
   }
 
