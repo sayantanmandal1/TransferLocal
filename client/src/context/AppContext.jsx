@@ -100,7 +100,7 @@ export function AppProvider({ children }) {
           if (!wsRef.current || wsRef.current.readyState === WebSocket.CLOSED) {
             connectWs();
           }
-        }, 3000);
+        }, 3000); // retry every 3 seconds
       }
     };
 
