@@ -7,7 +7,6 @@ export default function TransferProgress({ transfer }) {
   const isComplete = transfer.type === 'file_sent' || transfer.type === 'file_received' || transfer.status === 'complete';
   const isError = transfer.status === 'error';
 
-  // TODO: move to shared utils/format.js
   const formatSize = (bytes) => {
     if (!bytes) return '0 B';
     if (bytes < 1024) return bytes + ' B';
