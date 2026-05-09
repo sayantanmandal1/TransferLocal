@@ -50,7 +50,7 @@ export default function Home() {
   if (!state.identity) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="animate-spin w-6 h-6 border-2 border-muted-foreground border-t-transparent rounded-full" role="status" aria-label="Loading"></div>
+        <div className="animate-spin w-6 h-6 border-2 border-muted-foreground border-t-transparent rounded-full"></div>
       </div>
     );
   }
