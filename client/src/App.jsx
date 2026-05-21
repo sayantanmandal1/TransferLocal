@@ -7,7 +7,6 @@ import VerificationCode from './components/VerificationCode';
 import { AnimatePresence, motion } from 'framer-motion';
 import { WifiOff, Wifi } from 'lucide-react';
 
-/** Main application content with routing and modal overlays */
 function AppContent() {
   const { state, dispatch } = useApp();
 
