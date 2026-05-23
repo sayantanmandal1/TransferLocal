@@ -20,7 +20,8 @@ function ensureCerts() {
     fs.mkdirSync(CERTS_DIR, { recursive: true });
   }
 
-  const attrs = [{ name: 'commonName', value: 'Transfer Local' }];
+  const CERT_COMMON_NAME = 'Transfer Local';
+  const attrs = [{ name: 'commonName', value: CERT_COMMON_NAME }];
   const opts = {
     days: 3650, // 10 years
     keySize: 2048,
