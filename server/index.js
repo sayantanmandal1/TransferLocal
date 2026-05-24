@@ -236,8 +236,9 @@ app.get('/api/download/:filename(*)', (req, res) => {
   res.download(filePath);
 });
 
-// SPA fallback
+// SPA fallback (exclude WebSocket paths)
 app.get('*', (req, res) => {
+  if (req.path === '/ws' || req.path === '/ws/peer') return res.status(404).end();
   const indexPath = path.join(staticDir, 'index.html');
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
@@ -248,8 +249,8 @@ app.get('*', (req, res) => {
 
 // --- WebSocket ---
 
-const wss = new WebSocketServer({ server, path: '/ws' });
-const peerWss = new WebSocketServer({ server, path: '/ws/peer' });
+const wss = new WebSocketServer({ server, path: '/ws', perMessageDeflate: false });
+const peerWss = new WebSocketServer({ server, path: '/ws/peer', perMessageDeflate: false });
 const browserClients = new Set();
 
 wss.on('connection', (ws) => {
