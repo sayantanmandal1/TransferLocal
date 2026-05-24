@@ -267,13 +267,18 @@ export default function OfflineMode() {
 
         {/* Manual Instructions */}
         <div className="card !bg-secondary/50">
-          <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">Manual Setup</h4>
+          <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">Manual Setup (Recommended)</h4>
+          <div className="bg-amber-950/20 border border-amber-900/30 rounded-md p-2.5 mb-3">
+            <p className="text-xs text-amber-400">⚠ WiFi adapter must stay ON. You don't need internet — just the adapter.</p>
+          </div>
           <ol className="space-y-2 text-xs text-muted-foreground list-decimal list-inside">
-            <li>Open Windows Settings → Network & Internet → Mobile hotspot</li>
-            <li>Toggle "Share my Internet connection" ON</li>
-            <li>Note the network name and password shown</li>
+            <li>Keep WiFi adapter ON (disconnect from any network if you want)</li>
+            <li>Open Settings → Network & Internet → Mobile hotspot</li>
+            <li>Toggle it ON — it works without internet</li>
+            <li>Note the network name and password</li>
             <li>On the other device, connect to that WiFi network</li>
-            <li>Both devices will auto-discover each other in Transfer</li>
+            <li>Turn on "Available for connections" on both devices</li>
+            <li>They'll auto-discover each other — switch back to Online mode to connect</li>
           </ol>
         </div>
 
