@@ -195,6 +195,10 @@ function handlePeerMessage(msg, ws) {
       }
       break;
 
+    case 'code_rejected':
+      if (onSessionEvent) onSessionEvent({ type: 'code_rejected' });
+      break;
+
     case 'session_end':
       endSession('peer_ended');
       break;

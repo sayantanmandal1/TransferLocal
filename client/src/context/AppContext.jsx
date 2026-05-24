@@ -55,6 +55,10 @@ function reducer(state, action) {
       return { ...state, session: null, messages: [], transfers: [], view: 'home', verificationCode: null, pendingRequest: null };
     case 'CODE_EXPIRED':
       return { ...state, verificationCode: null };
+    case 'CODE_REJECTED':
+      return { ...state, codeRejected: true };
+    case 'CLEAR_CODE_REJECTED':
+      return { ...state, codeRejected: false };
     default:
       return state;
   }
@@ -152,7 +156,7 @@ function handleWsMessage(msg, dispatch) {
       dispatch({ type: 'CODE_EXPIRED' });
       break;
     case 'code_rejected':
-      dispatch({ type: 'SET_PENDING_REQUEST', data: null });
+      dispatch({ type: 'CODE_REJECTED' });
       break;
     case 'request_cancelled':
       dispatch({ type: 'SET_PENDING_REQUEST', data: null });

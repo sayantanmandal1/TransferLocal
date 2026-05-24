@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, X, Monitor } from 'lucide-react';
 import { useApp } from '../context/AppContext';
@@ -11,6 +11,17 @@ export default function ConnectionModal() {
   const [error, setError] = useState('');
 
   const request = state.pendingRequest;
+
+  // Handle code rejection from peer
+  useEffect(() => {
+    if (state.codeRejected) {
+      setError('Wrong verification code. Check the code and try again.');
+      setVerifying(false);
+      setCode('');
+      dispatch({ type: 'CLEAR_CODE_REJECTED' });
+    }
+  }, [state.codeRejected, dispatch]);
+
   if (!request) return null;
 
   const handleVerify = async () => {
