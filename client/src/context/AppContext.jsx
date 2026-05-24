@@ -13,6 +13,7 @@ const initialState = {
   transfers: [],
   connected: false,
   darkMode: localStorage.getItem('darkMode') === 'true',
+  offlineMode: false,
   view: 'home', // 'home' | 'workspace'
 };
 
@@ -46,6 +47,8 @@ function reducer(state, action) {
     case 'TOGGLE_DARK_MODE':
       localStorage.setItem('darkMode', !state.darkMode);
       return { ...state, darkMode: !state.darkMode };
+    case 'TOGGLE_OFFLINE_MODE':
+      return { ...state, offlineMode: !state.offlineMode };
     case 'SET_VIEW':
       return { ...state, view: action.data };
     case 'SESSION_ENDED':

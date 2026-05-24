@@ -44,4 +44,10 @@ export const api = {
     }
     return res.json();
   },
+
+  // Offline / Hotspot APIs
+  getNetworkStatus: () => request('/api/network-status'),
+  getHotspotInfo: () => request('/api/hotspot/info'),
+  enableHotspot: () => request('/api/hotspot/enable', { method: 'POST' }),
+  disableHotspot: () => request('/api/hotspot/disable', { method: 'POST' }),
 };

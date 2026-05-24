@@ -1,12 +1,14 @@
 import { AppProvider, useApp } from './context/AppContext';
 import Home from './pages/Home';
 import Workspace from './pages/Workspace';
+import OfflineMode from './pages/OfflineMode';
 import ConnectionModal from './components/ConnectionModal';
 import VerificationCode from './components/VerificationCode';
 import { AnimatePresence, motion } from 'framer-motion';
+import { WifiOff, Wifi } from 'lucide-react';
 
 function AppContent() {
-  const { state } = useApp();
+  const { state, dispatch } = useApp();
 
   return (
     <div className="min-h-screen relative">
@@ -22,6 +24,20 @@ function AppContent() {
             </h1>
           </div>
           <div className="flex items-center gap-3">
+            {/* Offline Mode Toggle */}
+            <button
+              onClick={() => dispatch({ type: 'TOGGLE_OFFLINE_MODE' })}
+              className={`flex items-center gap-1.5 px-2 py-1 rounded text-xs transition-colors ${
+                state.offlineMode
+                  ? 'bg-amber-950/40 text-amber-400 border border-amber-900/50'
+                  : 'hover:bg-secondary text-muted-foreground'
+              }`}
+              title={state.offlineMode ? 'Switch to Online Mode' : 'Switch to Offline Mode'}
+            >
+              {state.offlineMode ? <WifiOff className="w-3 h-3" /> : <Wifi className="w-3 h-3" />}
+              {state.offlineMode ? 'Offline' : 'Online'}
+            </button>
+
             {state.connected ? (
               <span className="flex items-center gap-1.5 text-xs text-emerald-400">
                 <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse-slow"></span>
@@ -40,7 +56,17 @@ function AppContent() {
       {/* Main content */}
       <main className="pt-14 min-h-screen">
         <AnimatePresence mode="wait">
-          {state.view === 'workspace' && state.session ? (
+          {state.offlineMode && state.view !== 'workspace' ? (
+            <motion.div
+              key="offline"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+            >
+              <OfflineMode />
+            </motion.div>
+          ) : state.view === 'workspace' && state.session ? (
             <motion.div
               key="workspace"
               initial={{ opacity: 0, y: 8 }}

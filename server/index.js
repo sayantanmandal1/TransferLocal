@@ -30,6 +30,14 @@ const {
   getReceiveDir,
 } = require('./transfer');
 const { getWorkspaceState } = require('./workspace');
+const {
+  getNetworkStatus,
+  getHotspotStatus,
+  getHotspotInfo,
+  enableHotspot,
+  disableHotspot,
+  getHotspotIP,
+} = require('./hotspot');
 
 const SERVER_PORT = parseInt(process.env.TRANSFER_PORT, 10) || 53401;
 const app = express();
@@ -234,6 +242,52 @@ app.get('/api/download/:filename(*)', (req, res) => {
     return res.status(404).json({ error: 'File not found' });
   }
   res.download(filePath);
+});
+
+// --- Offline / Hotspot API ---
+
+app.get('/api/network-status', async (req, res) => {
+  try {
+    const status = await getNetworkStatus();
+    const hotspot = await getHotspotStatus();
+    const hotspotIP = getHotspotIP();
+    res.json({ status, hotspot, hotspotIP });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/hotspot/info', async (req, res) => {
+  try {
+    const info = await getHotspotInfo();
+    const status = await getHotspotStatus();
+    const ip = getHotspotIP();
+    res.json({ ...info, active: status.active, ip, port: SERVER_PORT });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/hotspot/enable', async (req, res) => {
+  try {
+    await enableHotspot();
+    // Wait briefly for network interface to come up
+    await new Promise(r => setTimeout(r, 2000));
+    const info = await getHotspotInfo();
+    const ip = getHotspotIP();
+    res.json({ success: true, info, ip, port: SERVER_PORT });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/hotspot/disable', async (req, res) => {
+  try {
+    await disableHotspot();
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // SPA fallback (exclude WebSocket paths)
