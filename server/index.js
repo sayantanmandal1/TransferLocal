@@ -249,9 +249,25 @@ app.get('*', (req, res) => {
 
 // --- WebSocket ---
 
-const wss = new WebSocketServer({ server, path: '/ws', perMessageDeflate: false });
-const peerWss = new WebSocketServer({ server, path: '/ws/peer', perMessageDeflate: false });
+const wss = new WebSocketServer({ noServer: true, perMessageDeflate: false });
+const peerWss = new WebSocketServer({ noServer: true, perMessageDeflate: false });
 const browserClients = new Set();
+
+server.on('upgrade', (request, socket, head) => {
+  const { pathname } = new URL(request.url, `http://${request.headers.host}`);
+
+  if (pathname === '/ws') {
+    wss.handleUpgrade(request, socket, head, (ws) => {
+      wss.emit('connection', ws, request);
+    });
+  } else if (pathname === '/ws/peer') {
+    peerWss.handleUpgrade(request, socket, head, (ws) => {
+      peerWss.emit('connection', ws, request);
+    });
+  } else {
+    socket.destroy();
+  }
+});
 
 wss.on('connection', (ws) => {
   browserClients.add(ws);
