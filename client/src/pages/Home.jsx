@@ -50,68 +50,66 @@ export default function Home() {
   if (!state.identity) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="animate-spin w-8 h-8 border-3 border-primary-500 border-t-transparent rounded-full"></div>
+        <div className="animate-spin w-6 h-6 border-2 border-muted-foreground border-t-transparent rounded-full"></div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+    <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
       {/* Identity Card */}
       <motion.div
         className="card"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.3 }}
       >
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-gradient-to-br from-primary-400 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg shadow-primary-500/30">
-              <Monitor className="w-7 h-7 text-white" />
+            <div className="w-11 h-11 bg-neutral-800 border border-border rounded-lg flex items-center justify-center">
+              <Monitor className="w-5 h-5 text-neutral-300" />
             </div>
             <div>
               {editing ? (
-                <div className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    value={nameInput}
-                    onChange={(e) => setNameInput(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleNameSave()}
-                    onBlur={handleNameSave}
-                    className="input text-lg font-semibold w-48"
-                    maxLength={50}
-                    autoFocus
-                  />
-                </div>
+                <input
+                  type="text"
+                  value={nameInput}
+                  onChange={(e) => setNameInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleNameSave()}
+                  onBlur={handleNameSave}
+                  className="input text-base font-medium w-44"
+                  maxLength={50}
+                  autoFocus
+                />
               ) : (
                 <div className="flex items-center gap-2">
-                  <h2 className="text-xl font-bold">{state.identity.name}</h2>
+                  <h2 className="text-base font-medium">{state.identity.name}</h2>
                   <button
                     onClick={() => setEditing(true)}
-                    className="p-1.5 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
+                    className="p-1 rounded hover:bg-accent transition-colors"
                   >
-                    <Edit3 className="w-4 h-4 text-gray-400" />
+                    <Edit3 className="w-3.5 h-3.5 text-muted-foreground" />
                   </button>
                 </div>
               )}
-              <div className="flex items-center gap-2 mt-1">
-                <code className="text-sm text-gray-500 dark:text-gray-400 font-mono">
-                  {state.identity.id.substring(0, 8)}...
+              <div className="flex items-center gap-2 mt-0.5">
+                <code className="text-xs text-muted-foreground font-mono">
+                  {state.identity.id.substring(0, 8)}
                 </code>
                 <button
                   onClick={copyId}
-                  className="p-1 rounded hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
+                  className="p-0.5 rounded hover:bg-accent transition-colors"
                 >
                   {copied ? (
-                    <Check className="w-3.5 h-3.5 text-green-500" />
+                    <Check className="w-3 h-3 text-emerald-400" />
                   ) : (
-                    <Copy className="w-3.5 h-3.5 text-gray-400" />
+                    <Copy className="w-3 h-3 text-muted-foreground" />
                   )}
                 </button>
               </div>
               {state.identity.ips && (
-                <p className="text-xs text-gray-400 mt-1">
-                  {state.identity.ips.join(' • ')} : {state.identity.port}
+                <p className="text-xs text-muted-foreground mt-1">
+                  {state.identity.ips.join(' · ')} : {state.identity.port}
                 </p>
               )}
             </div>
@@ -119,18 +117,18 @@ export default function Home() {
         </div>
 
         {/* Available Toggle */}
-        <div className="mt-6 pt-6 border-t border-surface-200 dark:border-surface-700">
+        <div className="mt-5 pt-5 border-t border-border">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               {state.available ? (
-                <Wifi className="w-5 h-5 text-green-500" />
+                <Wifi className="w-4 h-4 text-emerald-400" />
               ) : (
-                <WifiOff className="w-5 h-5 text-gray-400" />
+                <WifiOff className="w-4 h-4 text-muted-foreground" />
               )}
               <div>
-                <p className="font-medium">Available for connections</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {state.available ? 'Other devices can see you' : 'You are hidden from the network'}
+                <p className="text-sm font-medium">Available for connections</p>
+                <p className="text-xs text-muted-foreground">
+                  {state.available ? 'Visible to nearby devices' : 'Hidden from network'}
                 </p>
               </div>
             </div>
@@ -141,31 +139,29 @@ export default function Home() {
 
       {/* Peers Section */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
       >
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold">Nearby Devices</h3>
-          <span className="text-sm text-gray-500 dark:text-gray-400">
-            {state.peers.length} {state.peers.length === 1 ? 'device' : 'devices'} found
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-sm font-medium">Nearby Devices</h3>
+          <span className="text-xs text-muted-foreground">
+            {state.peers.length} found
           </span>
         </div>
 
         {state.peers.length === 0 ? (
-          <div className="card text-center py-12">
-            <div className="w-16 h-16 mx-auto mb-4 bg-surface-200 dark:bg-surface-700 rounded-full flex items-center justify-center">
-              <Wifi className="w-8 h-8 text-gray-400" />
-            </div>
-            <p className="text-gray-500 dark:text-gray-400 font-medium">No devices found</p>
-            <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
+          <div className="card text-center py-10">
+            <Wifi className="w-8 h-8 text-muted-foreground mx-auto mb-3 opacity-50" />
+            <p className="text-sm text-muted-foreground">No devices found</p>
+            <p className="text-xs text-muted-foreground mt-1">
               {state.available
-                ? 'Make sure other devices are running Transfer and are available'
-                : 'Enable "Available for connections" to discover devices'}
+                ? 'Ensure other devices are running Transfer'
+                : 'Toggle availability to discover devices'}
             </p>
           </div>
         ) : (
-          <div className="grid gap-3">
+          <div className="space-y-2">
             <AnimatePresence>
               {state.peers.map((peer) => (
                 <PeerCard key={peer.id} peer={peer} />

@@ -70,46 +70,46 @@ export default function Workspace() {
         <div className="flex items-center gap-4">
           <button
             onClick={handleEndSession}
-            className="p-2 rounded-xl hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
+            className="p-2 rounded-md hover:bg-secondary transition-colors"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-5 h-5 text-muted-foreground" />
           </button>
           <div>
-            <h2 className="text-xl font-bold">Session with {peer?.name || 'Unknown'}</h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {peer?.ip}:{peer?.port} • ID: {peer?.id?.substring(0, 8)}
+            <h2 className="text-base font-semibold">Session with {peer?.name || 'Unknown'}</h2>
+            <p className="text-xs text-muted-foreground">
+              {peer?.ip}:{peer?.port} · {peer?.id?.substring(0, 8)}
             </p>
           </div>
         </div>
         <button onClick={handleEndSession} className="btn-danger flex items-center gap-2">
           <X className="w-4 h-4" />
-          End Session
+          End
         </button>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 p-1 bg-surface-200 dark:bg-surface-800 rounded-xl mb-6 w-fit">
+      <div className="flex gap-1 p-1 bg-secondary border border-border rounded-md mb-6 w-fit">
         <button
           onClick={() => setActiveTab('files')}
-          className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+          className={`px-3 py-1.5 rounded text-sm font-medium transition-all ${
             activeTab === 'files'
-              ? 'bg-white dark:bg-surface-700 shadow-sm'
-              : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+              ? 'bg-card border border-border text-foreground'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
         >
-          Files & Transfers
+          Files
         </button>
         <button
           onClick={() => setActiveTab('chat')}
-          className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+          className={`px-3 py-1.5 rounded text-sm font-medium transition-all ${
             activeTab === 'chat'
-              ? 'bg-white dark:bg-surface-700 shadow-sm'
-              : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+              ? 'bg-card border border-border text-foreground'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
         >
-          Messages
+          Chat
           {state.messages.length > 0 && (
-            <span className="ml-2 px-1.5 py-0.5 bg-primary-500 text-white text-xs rounded-full">
+            <span className="ml-2 px-1.5 py-0.5 bg-neutral-600 text-xs rounded-full">
               {state.messages.length}
             </span>
           )}
@@ -118,7 +118,7 @@ export default function Workspace() {
 
       {/* Tab Content */}
       {activeTab === 'files' ? (
-        <div className="space-y-6">
+        <div className="space-y-5">
           {/* Upload Actions */}
           <div className="flex gap-3">
             <button
@@ -126,14 +126,14 @@ export default function Workspace() {
               className="btn-primary flex items-center gap-2"
             >
               <Upload className="w-4 h-4" />
-              Upload Files
+              Files
             </button>
             <button
               onClick={() => folderInputRef.current?.click()}
               className="btn-secondary flex items-center gap-2"
             >
               <FolderUp className="w-4 h-4" />
-              Upload Folder
+              Folder
             </button>
             <input
               ref={fileInputRef}
@@ -157,8 +157,8 @@ export default function Workspace() {
 
           {/* Transfer Progress */}
           {state.transfers.length > 0 && (
-            <div className="space-y-3">
-              <h3 className="font-semibold text-sm text-gray-500 uppercase tracking-wider">
+            <div className="space-y-2">
+              <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Transfers
               </h3>
               {state.transfers.map((transfer) => (
@@ -169,27 +169,27 @@ export default function Workspace() {
 
           {/* Received Files */}
           {receivedFiles.length > 0 && (
-            <div className="space-y-3">
-              <h3 className="font-semibold text-sm text-gray-500 uppercase tracking-wider">
-                Received Files
+            <div className="space-y-2">
+              <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                Received
               </h3>
-              <div className="bg-surface-100 dark:bg-surface-800 rounded-xl divide-y divide-surface-200 dark:divide-surface-700">
+              <div className="bg-card border border-border rounded-md divide-y divide-border">
                 {receivedFiles.map((file, i) => (
-                  <div key={i} className="flex items-center justify-between px-4 py-3">
+                  <div key={i} className="flex items-center justify-between px-3 py-2.5">
                     <div className="flex items-center gap-3 min-w-0">
-                      <FileIcon className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                      <FileIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                       <div className="min-w-0">
                         <p className="text-sm font-medium truncate">{file.name}</p>
-                        <p className="text-xs text-gray-400">{formatSize(file.size)}</p>
+                        <p className="text-xs text-muted-foreground">{formatSize(file.size)}</p>
                       </div>
                     </div>
                     <a
                       href={`/api/download/${encodeURIComponent(file.path)}`}
                       download
-                      className="p-2 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors flex-shrink-0"
+                      className="p-1.5 rounded hover:bg-secondary transition-colors flex-shrink-0"
                       title="Download"
                     >
-                      <Download className="w-4 h-4 text-primary-500" />
+                      <Download className="w-4 h-4 text-neutral-400" />
                     </a>
                   </div>
                 ))}

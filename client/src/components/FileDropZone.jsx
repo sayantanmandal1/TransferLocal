@@ -59,37 +59,35 @@ export default function FileDropZone({ onDrop }) {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        animate={dragging ? { scale: 1.02, borderColor: '#3b82f6' } : { scale: 1 }}
-        className={`border-2 border-dashed rounded-2xl p-12 text-center transition-colors ${
+        animate={dragging ? { scale: 1.01 } : { scale: 1 }}
+        className={`border border-dashed rounded-lg p-10 text-center transition-colors ${
           dragging
-            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/10'
-            : 'border-surface-300 dark:border-surface-600 hover:border-primary-400'
+            ? 'border-neutral-400 bg-accent'
+            : 'border-border hover:border-neutral-600'
         }`}
       >
-        <div className="w-16 h-16 mx-auto mb-4 bg-surface-200 dark:bg-surface-700 rounded-full flex items-center justify-center">
-          <Upload className={`w-8 h-8 ${dragging ? 'text-primary-500' : 'text-gray-400'}`} />
-        </div>
-        <p className="font-medium text-gray-600 dark:text-gray-300">
-          {dragging ? 'Drop files here' : 'Drag & drop files or folders here'}
+        <Upload className={`w-6 h-6 mx-auto mb-3 ${dragging ? 'text-neutral-300' : 'text-muted-foreground'}`} />
+        <p className="text-sm text-muted-foreground">
+          {dragging ? 'Drop here' : 'Drag & drop files or folders'}
         </p>
-        <p className="text-sm text-gray-400 mt-1">Any file type, any size</p>
+        <p className="text-xs text-muted-foreground mt-1">Any file type, any size</p>
       </motion.div>
 
       {droppedFiles.length > 0 && (
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-3 space-y-1"
+          className="mt-2 space-y-1"
         >
           {droppedFiles.slice(0, 5).map((f, i) => (
-            <div key={i} className="flex items-center gap-2 text-sm text-gray-500">
-              <FileIcon className="w-3.5 h-3.5" />
+            <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
+              <FileIcon className="w-3 h-3" />
               <span>{f.name}</span>
-              <span className="text-xs text-gray-400">({formatSize(f.size)})</span>
+              <span className="text-neutral-600">({formatSize(f.size)})</span>
             </div>
           ))}
           {droppedFiles.length > 5 && (
-            <p className="text-xs text-gray-400">+{droppedFiles.length - 5} more files</p>
+            <p className="text-xs text-muted-foreground">+{droppedFiles.length - 5} more</p>
           )}
         </motion.div>
       )}

@@ -37,58 +37,58 @@ export default function ConnectionModal() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
+        initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
+        exit={{ scale: 0.95, opacity: 0 }}
         className="card max-w-md w-full"
       >
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center">
-              <Shield className="w-5 h-5 text-amber-600" />
+            <div className="w-9 h-9 bg-amber-500/10 border border-amber-500/20 rounded-md flex items-center justify-center">
+              <Shield className="w-4 h-4 text-amber-400" />
             </div>
-            <h3 className="text-lg font-bold">Connection Request</h3>
+            <h3 className="text-sm font-semibold">Connection Request</h3>
           </div>
           <button
             onClick={handleReject}
-            className="p-2 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700"
+            className="p-1.5 rounded-md hover:bg-accent transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4 text-muted-foreground" />
           </button>
         </div>
 
-        <div className="bg-surface-100 dark:bg-surface-800 rounded-xl p-4 mb-6">
+        <div className="bg-secondary rounded-md p-4 mb-5">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center">
-              <Monitor className="w-5 h-5 text-white" />
+            <div className="w-9 h-9 bg-neutral-800 border border-border rounded-md flex items-center justify-center">
+              <Monitor className="w-4 h-4 text-neutral-400" />
             </div>
             <div>
-              <p className="font-semibold">{request.name}</p>
-              <p className="text-xs text-gray-500">wants to connect</p>
+              <p className="text-sm font-medium">{request.name}</p>
+              <p className="text-xs text-muted-foreground">wants to connect</p>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-2 text-sm">
+          <div className="grid grid-cols-2 gap-2 text-xs">
             <div>
-              <span className="text-gray-500 text-xs">IP Address</span>
-              <p className="font-mono">{request.ip}</p>
+              <span className="text-muted-foreground">IP</span>
+              <p className="font-mono mt-0.5">{request.ip}</p>
             </div>
             <div>
-              <span className="text-gray-500 text-xs">Port</span>
-              <p className="font-mono">{request.port}</p>
+              <span className="text-muted-foreground">Port</span>
+              <p className="font-mono mt-0.5">{request.port}</p>
             </div>
             <div className="col-span-2">
-              <span className="text-gray-500 text-xs">Device ID</span>
-              <p className="font-mono text-xs">{request.id}</p>
+              <span className="text-muted-foreground">Device ID</span>
+              <p className="font-mono mt-0.5">{request.id}</p>
             </div>
           </div>
         </div>
 
-        <div className="mb-6">
-          <label className="block text-sm font-medium mb-2">
-            Enter the verification code shown on the other device:
+        <div className="mb-5">
+          <label className="block text-xs font-medium text-muted-foreground mb-2">
+            Enter the verification code shown on the other device
           </label>
           <input
             type="text"
@@ -96,14 +96,14 @@ export default function ConnectionModal() {
             onChange={(e) => setCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6))}
             onKeyDown={(e) => e.key === 'Enter' && handleVerify()}
             placeholder="XXXXXX"
-            className="input text-center text-2xl font-mono tracking-[0.3em] uppercase"
+            className="input text-center text-xl font-mono tracking-[0.3em] uppercase"
             maxLength={6}
             autoFocus
           />
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+          {error && <p className="text-red-400 text-xs mt-2">{error}</p>}
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex gap-2">
           <button onClick={handleReject} className="btn-secondary flex-1">
             Reject
           </button>

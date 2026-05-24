@@ -24,29 +24,29 @@ export default function PeerCard({ peer }) {
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.2 }}
-      className="card !p-4 hover:shadow-lg transition-shadow cursor-pointer"
+      exit={{ opacity: 0, scale: 0.98 }}
+      transition={{ duration: 0.15 }}
+      className="card !p-4 cursor-pointer hover:bg-accent/50 transition-colors"
       onClick={() => setExpanded(!expanded)}
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center">
-            <Monitor className="w-5 h-5 text-white" />
+          <div className="w-9 h-9 bg-neutral-800 border border-border rounded-md flex items-center justify-center">
+            <Monitor className="w-4 h-4 text-neutral-400" />
           </div>
           <div>
-            <h4 className="font-semibold">{peer.name}</h4>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              {peer.ip}:{peer.port} • {peer.id.substring(0, 8)}
+            <h4 className="text-sm font-medium">{peer.name}</h4>
+            <p className="text-xs text-muted-foreground">
+              {peer.ip} · {peer.id.substring(0, 8)}
             </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse-slow"></span>
+          <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse-slow"></span>
           <ChevronDown
-            className={`w-4 h-4 text-gray-400 transition-transform ${expanded ? 'rotate-180' : ''}`}
+            className={`w-4 h-4 text-muted-foreground transition-transform ${expanded ? 'rotate-180' : ''}`}
           />
         </div>
       </div>
@@ -56,20 +56,20 @@ export default function PeerCard({ peer }) {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
-          className="mt-4 pt-4 border-t border-surface-200 dark:border-surface-700"
+          className="mt-4 pt-4 border-t border-border"
         >
-          <div className="grid grid-cols-2 gap-3 text-sm mb-4">
+          <div className="grid grid-cols-3 gap-3 text-xs mb-4">
             <div>
-              <span className="text-gray-500 dark:text-gray-400">IP Address</span>
-              <p className="font-mono font-medium">{peer.ip}</p>
+              <span className="text-muted-foreground">IP</span>
+              <p className="font-mono mt-0.5">{peer.ip}</p>
             </div>
             <div>
-              <span className="text-gray-500 dark:text-gray-400">Port</span>
-              <p className="font-mono font-medium">{peer.port}</p>
+              <span className="text-muted-foreground">Port</span>
+              <p className="font-mono mt-0.5">{peer.port}</p>
             </div>
             <div>
-              <span className="text-gray-500 dark:text-gray-400">Device ID</span>
-              <p className="font-mono font-medium text-xs">{peer.id}</p>
+              <span className="text-muted-foreground">ID</span>
+              <p className="font-mono mt-0.5 truncate">{peer.id.substring(0, 12)}</p>
             </div>
           </div>
           <button
@@ -82,12 +82,12 @@ export default function PeerCard({ peer }) {
           >
             {connecting ? (
               <>
-                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                <span className="w-3.5 h-3.5 border-2 border-neutral-600 border-t-white rounded-full animate-spin"></span>
                 Connecting...
               </>
             ) : (
               <>
-                <Link className="w-4 h-4" />
+                <Link className="w-3.5 h-3.5" />
                 Establish Connection
               </>
             )}

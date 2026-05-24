@@ -1,6 +1,6 @@
 'use strict';
 
-const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
@@ -33,8 +33,9 @@ const { getWorkspaceState } = require('./workspace');
 
 const SERVER_PORT = parseInt(process.env.TRANSFER_PORT, 10) || 53401;
 const app = express();
-const certs = ensureCerts();
-const server = https.createServer({ cert: certs.cert, key: certs.key }, app);
+// TLS certs are only used for peer-to-peer connections, not the web UI
+ensureCerts();
+const server = http.createServer(app);
 
 // Middleware
 app.use(express.json());
@@ -325,9 +326,9 @@ server.listen(SERVER_PORT, '0.0.0.0', () => {
   console.log(`║  Port:   ${String(SERVER_PORT).padEnd(39)}║`);
   console.log('╠══════════════════════════════════════════════════╣');
   localIPs.forEach(ip => {
-    console.log(`║  → https://${ip}:${SERVER_PORT}`.padEnd(51) + '║');
+    console.log(`║  → http://${ip}:${SERVER_PORT}`.padEnd(51) + '║');
   });
-  console.log(`║  → https://localhost:${SERVER_PORT}`.padEnd(51) + '║');
+  console.log(`║  → http://localhost:${SERVER_PORT}`.padEnd(51) + '║');
   console.log('╚══════════════════════════════════════════════════╝');
   console.log('');
 });
