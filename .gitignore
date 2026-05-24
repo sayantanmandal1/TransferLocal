@@ -1,0 +1,7 @@
+node_modules/
+certs/
+client/dist/
+server/config.json
+*.log
+.env
+Transfer-Received/
