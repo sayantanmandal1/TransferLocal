@@ -34,9 +34,9 @@ function initiateConnection(targetPeer, serverPort) {
 
     targetPeerInfo = { id: targetPeer.id, name: targetPeer.name, ip: targetPeer.ip, port: targetPeer.port };
 
-    const wsUrl = `wss://${targetPeer.ip}:${targetPeer.port}/ws/peer`;
+    const wsUrl = `ws://${targetPeer.ip}:${targetPeer.port}/ws/peer`;
 
-    const ws = new WebSocket(wsUrl, { rejectUnauthorized: false });
+    const ws = new WebSocket(wsUrl);
 
     ws.on('open', () => {
       ws.send(JSON.stringify({
